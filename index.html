@@ -10,13 +10,28 @@
 </head>
 <body>
     <h1>Welcome to My Book Collection</h1>
-    <ul>
-        <li><a href="books/book1.html">Book 1</a></li>
-        <li><a href="books/book2.html">Book 2</a></li>
-        <li><a href="books/book3.html">Book 3</a></li>
-    </ul>
+    <ul id="book-list"></ul>  <!-- 這裡是書籍列表 -->
 
     <script>
+        // 書籍列表，您可以在此處添加新的書籍文件名稱
+        const books = [
+            "book1.html",
+            "book2.html",
+            "book3.html"
+        ];
+
+        // 生成書籍連結
+        const bookList = document.getElementById("book-list");
+        books.forEach(book => {
+            const listItem = document.createElement("li");
+            const link = document.createElement("a");
+            link.href = "books/" + book;  // 將書籍路徑指向 books 文件夾
+            link.textContent = book.replace('.html', '');  // 連結顯示書名（去掉.html）
+            listItem.appendChild(link);
+            bookList.appendChild(listItem);
+        });
+
+        // 註冊 Service Worker
         if ('serviceWorker' in navigator) {
             navigator.serviceWorker.register('/service-worker.js')
                 .then((registration) => {
